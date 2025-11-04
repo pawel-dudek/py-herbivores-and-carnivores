@@ -1,12 +1,12 @@
 class Animal:
-    alive = []
+    alive: list["Animal"] = []
 
     def __init__(self, name: str,
-                 healt: int = 100,
+                 health: int = 100,
                  hidden: bool = False) -> None:
         self.name = name
         self.hidden = hidden
-        self.health = healt
+        self.health = health
         Animal.alive.append(self)
 
     def removing(self) -> None:
@@ -20,10 +20,7 @@ class Animal:
 
 class Herbivore(Animal):
     def hide(self) -> None:
-        if self.hidden is True:
-            self.hidden = False
-        else:
-            self.hidden = True
+        self.hidden = not self.hidden
 
 
 class Carnivore(Animal):
@@ -31,8 +28,6 @@ class Carnivore(Animal):
         if isinstance(animal, Herbivore):
             if animal.hidden is False:
                 animal.health += -50
-            else:
-                animal.health
 
         if animal.health <= 0:
             Animal.removing(animal)
